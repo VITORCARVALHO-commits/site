@@ -1,10 +1,13 @@
 
 /* Base Styles */
 body {
-    background: linear-gradient(135deg, #0C244A 0%, #1a365d 50%, #0C244A 100%);
-    color: white;
-    overflow-x: hidden;
+    background: linear-gradient(to bottom, #0C244A 0%, #0C244A 50%, #162A44 100%);
+    --slide6-bg: linear-gradient(to bottom, #2c3e50 0%, #4ca1af 100%);
+color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+overflow-x: hidden;
     min-height: 100vh;
+    font-weight: 400;
 }
 /* Animations */
 @keyframes fadeIn {
@@ -16,64 +19,11 @@ body {
     from { opacity: 1; }
     to { opacity: 0; }
 }
-@keyframes textGlow {
-    0%, 100% { 
-        text-shadow: 0 0 5px rgba(255,255,255,0.2);
-    }
-    50% { 
-        text-shadow: 0 0 8px rgba(240, 74, 35, 0.3);
-    }
-}
-/* Floating effect only for headings */
-h1, h2, h3 {
-    animation: float 3s ease-in-out infinite;
-    transform-origin: center;
-}
 
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-}
-@keyframes float {
-    0%, 100% { 
-        transform: translateY(0) scale(1);
-        opacity: 1;
-    }
-    50% { 
-        transform: translateY(-15px) scale(1.05);
-        opacity: 0.9;
-    }
-}
 .animate-fadeIn {
     animation: fadeIn 1s ease-out forwards;
 }
-.text-glow {
-    animation: 
-        textGlow 3s infinite ease-in-out,
-        pulse 2s infinite alternate;
-}
 
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    100% {
-        transform: scale(1.02);
-    }
-}
-@keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
-}
-
-@keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: #F04A23; }
-}
 /* Hero Carousel */
 .hero-carousel {
     position: relative;
@@ -90,9 +40,13 @@ h1, h2, h3 {
     opacity: 0;
     transition: opacity 1s ease-in-out;
     z-index: 1;
-    background: linear-gradient(135deg, rgba(12,36,74,0.9) 0%, rgba(26,54,93,0.7) 50%, rgba(12,36,74,0.9) 100%);
+    background: linear-gradient(to bottom, #0C244A 0%, #0C244A 40%, transparent 100%);
     overflow: hidden;
     cursor: pointer;
+}
+
+.slide[data-slide="6"] {
+    background: var(--slide6-bg);
 }
 .slide.active {
     opacity: 1;
@@ -108,14 +62,17 @@ h1, h2, h3 {
     background-size: 5px 5px;
     z-index: 0;
 }
-
 /* Holo Line */
 .holo-line {
     width: 80px;
-    height: 3px;
-    background: rgba(255,255,255,0.5);
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(200, 200, 255, 0.8));
     border-radius: 2px;
     margin-bottom: 24px;
+}
+/* Icon colors */
+[data-feather] {
+    color: inherit;
 }
 /* Carousel Dots */
 .dots-container {
@@ -127,7 +84,6 @@ h1, h2, h3 {
     gap: 8px;
     z-index: 20;
 }
-
 .dot {
     width: 12px;
     height: 12px;
@@ -135,9 +91,11 @@ h1, h2, h3 {
     background: rgba(255, 255, 255, 0.3);
     cursor: pointer;
     transition: all 0.3s ease;
+    color: inherit;
 }
 .dot.active {
-    background: rgba(255,255,255,0.8);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
     transform: scale(1.1);
 }
 /* WhatsApp CTA */
@@ -146,21 +104,38 @@ h1, h2, h3 {
     bottom: 32px;
     right: 32px;
     background: #25D366;
-    color: white;
+    color: #ffffff;
     font-weight: 500;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
     padding: 12px 24px;
     border-radius: 9999px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     z-index: 30;
+    animation: pulse 1.5s infinite;
 }
 
 .whatsapp-cta:hover {
     background: #128C7E;
-    transform: translateY(-1px);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(37, 211, 102, 0.4);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
 }
 /* Back to Top Button */
 #backToTop {
@@ -180,14 +155,17 @@ h1, h2, h3 {
 }
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-    .hero-carousel h1 {
+.hero-carousel h1 {
         font-size: 2.5rem;
         line-height: 1.2;
-    }
-    
+        color: #ffffff;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
     .hero-carousel p {
         font-size: 1.2rem;
-    }
+        color: #e6f7ff;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
     
     .slide img {
         opacity: 0.3;
@@ -214,19 +192,25 @@ h1, h2, h3 {
 .interactive-gallery {
     margin-top: 2rem;
 }
+
 .gallery-item {
-    border: 1px solid rgba(255,255,255,0.1);
-    transition: all 0.2s ease;
+    border: 2px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+}
+.gallery-item:hover {
+    border-color: rgba(240, 74, 35, 0.5);
+    transform: scale(1.03);
+    box-shadow: 0 2px 8px rgba(240, 74, 35, 0.2);
+}
+/* WhatsApp Click Animation */
+.whatsapp-cta.clicked {
+    transform: scale(0.9);
+    background: rgba(18, 140, 126, 0.9);
 }
 
-.gallery-item:hover {
-    transform: scale(1.02);
-    border-color: rgba(240, 74, 35, 0.3);
-    box-shadow: 0 0 8px rgba(240, 74, 35, 0.1);
-}
 /* Lightbox Animation */
 @keyframes fadeInLightbox {
-    from { opacity: 0; }
+from { opacity: 0; }
     to { opacity: 1; }
 }
 
@@ -240,7 +224,6 @@ h1, h2, h3 {
     margin: 0 auto;
     padding: 0 24px;
 }
-
 .glow-effect {
-    filter: drop-shadow(0 0 10px rgba(240, 74, 35, 0.5));
+    filter: drop-shadow(0 0 5px rgba(240, 74, 35, 0.3));
 }
